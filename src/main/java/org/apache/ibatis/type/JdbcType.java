@@ -19,12 +19,18 @@ import java.sql.Types;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 定义了各种类型
+ */
 public enum JdbcType {
   /*
    * This is added to enable basic support for the
    * ARRAY data type - but a custom type handler is still required
    */
+  //TODO ?不同类型对应数据库中的实际类型
+  /** 数组类型 */
   ARRAY(Types.ARRAY),
+  /** 数值类型 */
   BIT(Types.BIT),
   TINYINT(Types.TINYINT),
   SMALLINT(Types.SMALLINT),
@@ -35,12 +41,15 @@ public enum JdbcType {
   DOUBLE(Types.DOUBLE),
   NUMERIC(Types.NUMERIC),
   DECIMAL(Types.DECIMAL),
+  /** 字符类型 */
   CHAR(Types.CHAR),
   VARCHAR(Types.VARCHAR),
   LONGVARCHAR(Types.LONGVARCHAR),
+  /** 日期类型 */
   DATE(Types.DATE),
   TIME(Types.TIME),
   TIMESTAMP(Types.TIMESTAMP),
+  /** 二进制类型 */
   BINARY(Types.BINARY),
   VARBINARY(Types.VARBINARY),
   LONGVARBINARY(Types.LONGVARBINARY),

@@ -15,6 +15,6 @@
  */
 
 /**
- * TODO fillme.
+ * TODO ? mapper接口 和 xml的绑定
  */
 package org.apache.ibatis.binding;

@@ -32,7 +32,7 @@ public class SqlSessionManager implements SqlSessionFactory, SqlSession {
 
   private final SqlSessionFactory sqlSessionFactory;
   private final SqlSession sqlSessionProxy;
-
+  //ThreadLocal
   private ThreadLocal<SqlSession> localSqlSession = new ThreadLocal<SqlSession>();
 
   public static SqlSessionManager newInstance(Reader reader) {

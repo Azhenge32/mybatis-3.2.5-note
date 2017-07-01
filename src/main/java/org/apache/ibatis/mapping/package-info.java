@@ -15,6 +15,6 @@
  */
 
 /**
- * TODO fillme.
+ * 处理 参数、结果集、SQL语句等各种配置和数据库的映射
  */
 package org.apache.ibatis.mapping;

@@ -15,7 +15,7 @@
  */
 
 /**
- * TODO fillme.
+ * 定义MyBatis支持的注解
  */
 package org.apache.ibatis.annotations;
 

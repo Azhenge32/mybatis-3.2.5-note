@@ -18,7 +18,9 @@ package org.apache.ibatis.exceptions;
 import org.apache.ibatis.executor.ErrorContext;
 
 public class ExceptionFactory {
-
+  /**
+   * 把底层抛出的各种一场，统一转化为RuntimeException
+   */
   public static RuntimeException wrapException(String message, Exception e) {
     return new PersistenceException(ErrorContext.instance().message(message).cause(e).toString(), e);
   }

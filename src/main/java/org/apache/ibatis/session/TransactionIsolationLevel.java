@@ -17,11 +17,19 @@ package org.apache.ibatis.session;
 
 import java.sql.Connection;
 
+/**
+ * 事务隔离级别
+ */
 public enum TransactionIsolationLevel {
+  /** 没有事物 */
   NONE(Connection.TRANSACTION_NONE),
+  /** 读提交 不可重复读*/
   READ_COMMITTED(Connection.TRANSACTION_READ_COMMITTED),
+  /** 读未提交  脏读 */
   READ_UNCOMMITTED(Connection.TRANSACTION_READ_UNCOMMITTED),
+  /** 重复读，即再一个事务开始时，不允许update操作, 但允许insert操作  可能出现幻读*/
   REPEATABLE_READ(Connection.TRANSACTION_REPEATABLE_READ),
+  /** 串行化 */
   SERIALIZABLE(Connection.TRANSACTION_SERIALIZABLE);
 
   private final int level;
