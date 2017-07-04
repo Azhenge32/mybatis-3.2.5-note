@@ -45,7 +45,9 @@ public final class TypeHandlerRegistry {
       put(Character.class, char.class);
     }
   };
-
+  /**
+   * EnumMap是为枚举类服务的，它的key不能为null，在创建它的时候，必须要指定一个枚举类
+   */
   private final Map<JdbcType, TypeHandler<?>> JDBC_TYPE_HANDLER_MAP = new EnumMap<JdbcType, TypeHandler<?>>(JdbcType.class);
   private final Map<Type, Map<JdbcType, TypeHandler<?>>> TYPE_HANDLER_MAP = new HashMap<Type, Map<JdbcType, TypeHandler<?>>>();
   private final TypeHandler<Object> UNKNOWN_TYPE_HANDLER = new UnknownTypeHandler(this);

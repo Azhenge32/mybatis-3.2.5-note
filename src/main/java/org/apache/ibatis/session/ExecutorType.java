@@ -16,7 +16,7 @@
 package org.apache.ibatis.session;
 
 public enum ExecutorType {
-  SIMPLE,
-  REUSE,
-  BATCH
+  SIMPLE,//SIMPLE 就是普通的执行器
+  REUSE,//REUSE执行器会重用预处理语句（prepared statements）
+  BATCH // BATCH 执行器将重用语句并执行批量更新
 }

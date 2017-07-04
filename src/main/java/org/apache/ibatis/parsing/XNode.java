@@ -298,9 +298,16 @@ public class XNode {
     return children;
   }
 
+  /**
+   <properties resource="org/mybatis/example/config.properties">
+     <property name="username" value="dev_user"/>
+     <property name="password" value="F2Fa3!33TYyg"/>
+   </properties>
+   *
+   */
   public Properties getChildrenAsProperties() {
     Properties properties = new Properties();
-    for (XNode child : getChildren()) {
+    for (XNode child : getChildren()) { //遍历所有property
       String name = child.getStringAttribute("name");
       String value = child.getStringAttribute("value");
       if (name != null && value != null) {

@@ -15,6 +15,9 @@
  */
 package org.apache.ibatis.mapping;
 
+/**
+ * 存储过程入参类型
+ */
 public enum ParameterMode {
   IN, OUT, INOUT
 }

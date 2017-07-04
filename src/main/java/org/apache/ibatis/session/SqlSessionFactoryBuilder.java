@@ -26,8 +26,8 @@ import org.apache.ibatis.executor.ErrorContext;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 
 /*
- * Builds {@link SqlSession} instances.
- *
+ * 解析xml或注释等配置来构建SqlSessionFactory
+ * 支持字符流和字节流
  */
 public class SqlSessionFactoryBuilder {
 

@@ -15,6 +15,6 @@
  */
 
 /**
- * TODO fillme.
+ * 解析xml配置文件，创建MyBatis组件
  */
 package org.apache.ibatis.builder;

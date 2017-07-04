@@ -28,8 +28,11 @@ import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 
 public abstract class BaseBuilder {
+  /** 总体配置环境 */
   protected final Configuration configuration;
+  /** 别名注册表 */
   protected final TypeAliasRegistry typeAliasRegistry;
+  /** 类型注册表 */
   protected final TypeHandlerRegistry typeHandlerRegistry;
 
   public BaseBuilder(Configuration configuration) {
@@ -86,7 +89,7 @@ public abstract class BaseBuilder {
     Class<?> clazz = resolveClass(alias);
     if (clazz == null) return null;
     try {
-      return resolveClass(alias).newInstance();
+      return resolveClass(alias).newInstance(); //Class.newInstance()
     } catch (Exception e) {
       throw new BuilderException("Error creating instance. Cause: " + e, e);
     }
@@ -123,6 +126,11 @@ public abstract class BaseBuilder {
     return handler;
   }
 
+  /**
+   * 根据别名获取对应的Class类型
+   * @param alias
+   * @return
+   */
   protected Class<?> resolveAlias(String alias) {
     return typeAliasRegistry.resolveAlias(alias);
   }

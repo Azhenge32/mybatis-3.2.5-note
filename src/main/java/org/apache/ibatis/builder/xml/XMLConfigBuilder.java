@@ -17,6 +17,8 @@ package org.apache.ibatis.builder.xml;
 
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -90,18 +92,21 @@ public class XMLConfigBuilder extends BaseBuilder {
     return configuration;
   }
 
+  /**
+   * 解析mybatis-config.xml配置文件
+   */
   private void parseConfiguration(XNode root) {
     try {
-      propertiesElement(root.evalNode("properties")); //issue #117 read properties first
+      propertiesElement(root.evalNode("properties")); //属性 issue #117 read properties first
       typeAliasesElement(root.evalNode("typeAliases"));
-      pluginElement(root.evalNode("plugins"));
-      objectFactoryElement(root.evalNode("objectFactory"));
+      pluginElement(root.evalNode("plugins"));  //插件
+      objectFactoryElement(root.evalNode("objectFactory")); //对象工厂
       objectWrapperFactoryElement(root.evalNode("objectWrapperFactory"));
-      settingsElement(root.evalNode("settings"));
-      environmentsElement(root.evalNode("environments")); // read it after objectFactory and objectWrapperFactory issue #631
-      databaseIdProviderElement(root.evalNode("databaseIdProvider"));
-      typeHandlerElement(root.evalNode("typeHandlers"));
-      mapperElement(root.evalNode("mappers"));
+      settingsElement(root.evalNode("settings")); //设置
+      environmentsElement(root.evalNode("environments")); //环境 read it after objectFactory and objectWrapperFactory issue #631
+      databaseIdProviderElement(root.evalNode("databaseIdProvider")); //数据库厂商标识
+      typeHandlerElement(root.evalNode("typeHandlers"));  //类型处理器
+      mapperElement(root.evalNode("mappers"));  //映射器
     } catch (Exception e) {
       throw new BuilderException("Error parsing SQL Mapper Configuration. Cause: " + e, e);
     }
@@ -194,14 +199,23 @@ public class XMLConfigBuilder extends BaseBuilder {
         }
       }
       configuration.setAutoMappingBehavior(AutoMappingBehavior.valueOf(props.getProperty("autoMappingBehavior", "PARTIAL")));
+      //该配置影响的所有映射器中配置的缓存的全局开关
       configuration.setCacheEnabled(booleanValueOf(props.getProperty("cacheEnabled"), true));
+      //TODO ? 指定 Mybatis 创建具有延迟加载能力的对象所用到的代理工具
       configuration.setProxyFactory((ProxyFactory) createInstance(props.getProperty("proxyFactory")));
+      //延迟加载的全局开关
       configuration.setLazyLoadingEnabled(booleanValueOf(props.getProperty("lazyLoadingEnabled"), false));
+      //当开启时，任何方法的调用都会加载该对象的所有属性
       configuration.setAggressiveLazyLoading(booleanValueOf(props.getProperty("aggressiveLazyLoading"), true));
+      //TODO ? 是否允许单一语句返回多结果集
       configuration.setMultipleResultSetsEnabled(booleanValueOf(props.getProperty("multipleResultSetsEnabled"), true));
+      //使用列标签代替列名
       configuration.setUseColumnLabel(booleanValueOf(props.getProperty("useColumnLabel"), true));
+      //允许 JDBC 支持自动生成主键，需要驱动兼容
       configuration.setUseGeneratedKeys(booleanValueOf(props.getProperty("useGeneratedKeys"), false));
+      //配置默认的执行器类型
       configuration.setDefaultExecutorType(ExecutorType.valueOf(props.getProperty("defaultExecutorType", "SIMPLE")));
+      //设置超时时间，它决定驱动等待数据库响应的秒数。
       configuration.setDefaultStatementTimeout(integerValueOf(props.getProperty("defaultStatementTimeout"), null));
       configuration.setMapUnderscoreToCamelCase(booleanValueOf(props.getProperty("mapUnderscoreToCamelCase"), false));
       configuration.setSafeRowBoundsEnabled(booleanValueOf(props.getProperty("safeRowBoundsEnabled"), false));
@@ -210,8 +224,11 @@ public class XMLConfigBuilder extends BaseBuilder {
       configuration.setLazyLoadTriggerMethods(stringSetValueOf(props.getProperty("lazyLoadTriggerMethods"), "equals,clone,hashCode,toString"));
       configuration.setSafeResultHandlerEnabled(booleanValueOf(props.getProperty("safeResultHandlerEnabled"), true));
       configuration.setDefaultScriptingLanguage(resolveClass(props.getProperty("defaultScriptingLanguage")));
+      //指定当结果集中值为 null 的时候是否调用映射对象的 setter
       configuration.setCallSettersOnNulls(booleanValueOf(props.getProperty("callSettersOnNulls"), false));
+      //指定 MyBatis 增加到日志名称的前缀
       configuration.setLogPrefix(props.getProperty("logPrefix"));
+      //指定 MyBatis 所用日志的具体实现，未指定时将自动查找
       configuration.setLogImpl(resolveClass(props.getProperty("logImpl")));
       configuration.setConfigurationFactory(resolveClass(props.getProperty("configurationFactory")));
     }
@@ -220,14 +237,15 @@ public class XMLConfigBuilder extends BaseBuilder {
   private void environmentsElement(XNode context) throws Exception {
     if (context != null) {
       if (environment == null) {
-        environment = context.getStringAttribute("default");
+        environment = context.getStringAttribute("default");  //默认的环境
       }
       for (XNode child : context.getChildren()) {
-        String id = child.getStringAttribute("id");
+        String id = child.getStringAttribute("id"); //可以配置多个环境，用id区别
         if (isSpecifiedEnvironment(id)) {
           TransactionFactory txFactory = transactionManagerElement(child.evalNode("transactionManager"));
           DataSourceFactory dsFactory = dataSourceElement(child.evalNode("dataSource"));
           DataSource dataSource = dsFactory.getDataSource();
+          //Builder 模式
           Environment.Builder environmentBuilder = new Environment.Builder(id)
               .transactionFactory(txFactory)
               .dataSource(dataSource);

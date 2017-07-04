@@ -17,6 +17,9 @@ package org.apache.ibatis.session;
 
 import java.sql.Connection;
 
+/**
+ * 创建SqlSession的接口
+ */
 public interface SqlSessionFactory {
 
   SqlSession openSession();

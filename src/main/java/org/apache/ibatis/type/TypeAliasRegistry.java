@@ -33,7 +33,7 @@ import org.apache.ibatis.io.ResolverUtil;
 import org.apache.ibatis.io.Resources;
 
 public class TypeAliasRegistry {
-
+  /** 保持别名对应的Class类型 */
   private final Map<String, Class<?>> TYPE_ALIASES = new HashMap<String, Class<?>>();
 
   public TypeAliasRegistry() {
@@ -57,6 +57,7 @@ public class TypeAliasRegistry {
     registerAlias("float[]", Float[].class);
     registerAlias("boolean[]", Boolean[].class);
 
+    //TODO 这些下划线时候用到
     registerAlias("_byte", byte.class);
     registerAlias("_long", long.class);
     registerAlias("_short", short.class);
