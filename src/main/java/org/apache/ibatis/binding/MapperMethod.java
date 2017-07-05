@@ -39,6 +39,13 @@ public class MapperMethod {
     this.method = new MethodSignature(config, method);
   }
 
+  /**
+   * 根据SqlCommand的不同类型
+   * 调用SqlSession的不同方法去执行
+   * @param sqlSession
+   * @param args
+   * @return
+   */
   public Object execute(SqlSession sqlSession, Object[] args) {
     Object result;
     if (SqlCommandType.INSERT == command.getType()) {

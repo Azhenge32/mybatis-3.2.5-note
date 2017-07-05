@@ -16,5 +16,6 @@
 
 /**
  * TODO ? mapper接口 和 xml的绑定
+ * 生成Mapper代理  Proxy 代理设计模式
  */
 package org.apache.ibatis.binding;
