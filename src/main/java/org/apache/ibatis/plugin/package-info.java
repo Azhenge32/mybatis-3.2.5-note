@@ -15,6 +15,6 @@
  */
 
 /**
- * TODO fillme.
+ * MyBatis的插件包
  */
 package org.apache.ibatis.plugin;

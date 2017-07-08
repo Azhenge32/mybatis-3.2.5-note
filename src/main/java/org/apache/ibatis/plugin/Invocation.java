@@ -15,14 +15,16 @@
  */
 package org.apache.ibatis.plugin;
 
+import org.apache.ibatis.annotations.Param;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class Invocation {
 
   private Object target;
-  private Method method;
-  private Object[] args;
+  private Method method;  //方法名  即id的值
+  private Object[] args;  //方法入参 如public Page<T> queryByMap(@Param("page") Page<T> page, @Param("map") Map<String, Object> parameter);
 
   public Invocation(Object target, Method method, Object[] args) {
     this.target = target;

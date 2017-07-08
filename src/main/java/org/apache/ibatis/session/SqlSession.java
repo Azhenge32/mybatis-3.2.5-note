@@ -29,7 +29,7 @@ import org.apache.ibatis.executor.BatchResult;
  */
 public interface SqlSession extends Closeable {
 
-  /**
+  /**S
    * Retrieve a single row mapped from the statement key
    * @param <T> the returned object type
    * @param statement
