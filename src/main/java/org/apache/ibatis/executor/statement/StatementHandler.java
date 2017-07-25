@@ -24,6 +24,9 @@ import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.session.ResultHandler;
 
+/**
+ * 可以被拦截
+ */
 public interface StatementHandler {
 
   Statement prepare(Connection connection)

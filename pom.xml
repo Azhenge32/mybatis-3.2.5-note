@@ -297,6 +297,7 @@
               <exclude>org/apache/ibatis/ognl/**/*.class</exclude>
             </excludes>
           </instrumentation>
+          <check/>
         </configuration>
         <executions>
           <execution>
@@ -350,6 +351,7 @@
             <format>html</format>
             <format>xml</format>
           </formats>
+          <check/>
         </configuration>
       </plugin>
     </plugins>

@@ -22,6 +22,10 @@ import java.sql.SQLException;
  * A parameter handler sets the parameters of the {@code PreparedStatement}
  *
  */
+
+/**
+ * 可以被拦截
+ */
 public interface ParameterHandler {
 
   Object getParameterObject();
